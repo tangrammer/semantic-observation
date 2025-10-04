@@ -1,42 +1,42 @@
-* semantic-observation
+* semantic-assertion
 
 
 ** clojars info
-https://clojars.org/com.github.tangrammer/semantic-observation
+https://clojars.org/com.github.tangrammer/semantic-assertion
 
 
 ** Usage
 
  #+BEGIN_SRC clojure
  (ns example 0 references
-     (:require [semantic.observation :as observation]
-	       [semantic.observation.type :as observation.type]
-	       [semantic.observation.type.catalog]))
+     (:require [semantic.assertion :as assertion]
+	       [semantic.assertion.type :as assertion.type]
+	       [semantic.assertion.type.catalog]))
 
- (observation/register! :dev/yorba-id :semantic.observation.type/docs
+ (assertion/register! :dev/yorba-id :semantic.assertion.type/docs
 			{:documentation/content "Hello yorba docs!"})
  ;; {:semantic/subject          :dev/yorba-id,
- ;;  :semantic/observation      #:documentation{:content "Hello yorba docs!"},
- ;;  :semantic.observation/type :semantic.observation.type/docs}
+ ;;  :semantic/assertion      #:documentation{:content "Hello yorba docs!"},
+ ;;  :semantic.assertion/type :semantic.assertion.type/docs}
 
- (observation/fetch :dev/yorba-id :semantic.observation.type/docs)
+ (assertion/fetch :dev/yorba-id :semantic.assertion.type/docs)
  ;;=> #:documentation{:content "Hello yorba docs!"}
 
- (observation.type/implementers  :semantic.observation.type/docs)
+ (assertion.type/implementers  :semantic.assertion.type/docs)
  ;;=> #{:dev/yorba-id}
 
- (mapv #(observation/fetch % :semantic.observation.type/docs) (observation.type/implementers
-							       :semantic.observation.type/docs))
+ (mapv #(assertion/fetch % :semantic.assertion.type/docs) (assertion.type/implementers
+							       :semantic.assertion.type/docs))
  ;;=> [#:documentation{:content "Hello yorba docs!"}]
 
- (observation/register! :dev/yorba-foo :semantic.observation.type/docs
+ (assertion/register! :dev/yorba-foo :semantic.assertion.type/docs
 			{:documentation/content "Hello yorba foo!"})
  ;; {:semantic/subject          :dev/yorba-foo,
- ;;  :semantic/observation      #:documentation{:content "Hello yorba foo!"},
- ;;  :semantic.observation/type :semantic.observation.type/docs}
+ ;;  :semantic/assertion      #:documentation{:content "Hello yorba foo!"},
+ ;;  :semantic.assertion/type :semantic.assertion.type/docs}
 
- (mapv #(observation/fetch % :semantic.observation.type/docs) (observation.type/implementers
-							       :semantic.observation.type/docs))
+ (mapv #(assertion/fetch % :semantic.assertion.type/docs) (assertion.type/implementers
+							       :semantic.assertion.type/docs))
  ;;=> [#:documentation{:content "Hello yorba docs!"} #:documentation{:content "Hello yorba foo!"}]   
  #+END_SRC
 
@@ -50,21 +50,21 @@ Traditional type systems and data schemas conflate structure with meaning, leadi
 - Different contexts need different views of the same entity
 - Systems become brittle as requirements evolve
 
-*** Solution: Semantic Observations
-This project implements a field-centric observation system where:
+*** Solution: Semantic Assertions
+This project implements a field-centric assertion system where:
 
 - *Semantic attributes are first-class* - Individual fields (~:documentation/content~) have independent meaning and validation via ~clojure.spec~
-- *Observation types are composable collections* - Rather than fixed schemas, observation types (~:semantic.observation.type/docs~) are just named collections of attributes that can be observed about semantic subject identities
-- *Subjects accumulate observations* - Any subject (identified by namespaced keyword) can have multiple observations of different types made about it, enabling information accretion without modification
-- *Context-independent semantics* - The meaning of ~:documentation/content~ remains stable regardless of which observation type includes it
+- *Assertion types are composable collections* - Rather than fixed schemas, assertion types (~:semantic.assertion.type/docs~) are just named collections of attributes that can be asserted about semantic subject identities
+- *Subjects accumulate assertions* - Any subject (identified by namespaced keyword) can have multiple assertions of different types made about it, enabling information accretion without modification
+- *Context-independent semantics* - The meaning of ~:documentation/content~ remains stable regardless of which assertion type includes it
 
 *** Key Benefits
 
-- *Open-world assumption* - New observation types can be added without changing existing ones
-- *Reusable semantic fields* - Attributes defined once, used across many observation types
-- *Discovery via registry* - Can query which subjects implement an observation type
+- *Open-world assumption* - New assertion types can be added without changing existing ones
+- *Reusable semantic fields* - Attributes defined once, used across many assertion types
+- *Discovery via registry* - Can query which subjects implement an assertion type
 - *Evolution without breakage* - Following Rich Hickey's "accretion not breakage" principle
-- *Separates "what can be observed" from "what is required"* - Aligns with the schema/selection split from "Maybe Not" talk
+- *Separates "what can be observed/asserted" from "what is required"* - Aligns with the schema/selection split from "Maybe Not" talk
 
 This architecture enables systems to grow by accretion rather than modification, supporting the kind of compatible evolution that Rich Hickey advocates for in "Spec-ulation" while providing the semantic stability and reusability outlined in the field-centric architecture design.
 

@@ -1,6 +1,6 @@
-(defproject com.github.tangrammer/semantic-observation "0.1.0-SNAPSHOT"
+(defproject com.github.tangrammer/semantic-assertion "0.1.0-SNAPSHOT"
   :description "decomplecting clojure.spec, from validation to self-discoverable semantic services"
-  :url "https://github.com/tangrammer/semantic-observation"
+  :url "https://github.com/tangrammer/semantic-assertion"
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.11.1"]]
