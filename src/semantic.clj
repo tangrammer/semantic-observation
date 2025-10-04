@@ -21,4 +21,8 @@
      :semantic/observation observation
      :semantic.observation/type observation-type}))
 
+(defn read-observation
+  ^{:pre [(qualified-keyword? subject-id) (qualified-keyword? observation-type) ]}
+  [subject-id observation-type]
+  (-> @registry subject-id (select-keys (observation.type/attributes observation-type))))
 

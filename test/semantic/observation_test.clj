@@ -34,6 +34,10 @@
            {:semantic/subject ::cool-id,
             :semantic/observation {:documentation/content "Cool stuff!"},
             :semantic.observation/type :semantic.observation.type/docs}))
+
+    (is (= (semantic/read-observation ::cool-id :semantic.observation.type/docs)
+           {:documentation/content "Cool stuff!"}))
+    
     (is (= (semantic.observation.type/implementers :semantic.observation.type/docs)
            #{:semantic.observation-test/cool-id
 	    :semantic.observation-test/other-id}))))
