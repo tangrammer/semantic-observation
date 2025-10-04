@@ -38,6 +38,6 @@
     (is (= (observation/fetch ::cool-id :semantic.observation.type/docs)
            {:documentation/content "Cool stuff!"}))
     
-    (is (= (semantic.observation.type/implementers :semantic.observation.type/docs)
+    (is (= (semantic.observation.type/subjects :semantic.observation.type/docs)
            #{:semantic.observation-test/cool-id
 	    :semantic.observation-test/other-id}))))

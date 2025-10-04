@@ -16,7 +16,7 @@
 
     (dosync
      (alter registry update subject-id merge observation)
-     (alter observation.type/registry update-in [observation-type ::observation.type/implementers] conj subject-id))
+     (alter observation.type/registry update-in [observation-type ::observation.type/subjects] conj subject-id))
     {:semantic.observation/subject subject-id
      :semantic.observation/observation observation
      :semantic.observation/type observation-type}))

@@ -10,12 +10,12 @@
   [type-kw spec-kw-col]
   (mapv #(assert (% (s/registry)) (format "%s is not a spec yet, do you forget to s/def or to load/eval firstly that other ns?" (pr-str %))) spec-kw-col)
   (dosync (alter registry assoc type-kw {::attributes spec-kw-col
-                                         ::implementers #{}})))
+                                         ::subjects #{}})))
 
-(defn implementers
+(defn subjects
   ^{:pre [(qualified-keyword? observation-type)]}
   [observation-type]
-  (::implementers (observation-type @registry)))
+  (::subjects (observation-type @registry)))
 
 (defn attributes
   ^{:pre [(qualified-keyword? observation-type)]}
