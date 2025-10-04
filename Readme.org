@@ -8,38 +8,36 @@ https://clojars.org/com.github.tangrammer/semantic-observation
 ** Usage
 
  #+BEGIN_SRC clojure
- (ns example
-   (:require [semantic]
-	     [semantic.observation.type :as observation.type]
-	     [semantic.observation.type.catalog]))
+ (ns example 0 references
+     (:require [semantic.observation :as observation]
+	       [semantic.observation.type :as observation.type]
+	       [semantic.observation.type.catalog]))
 
- (semantic/observe!
-  :dev/yorba-id
-  :semantic.observation.type/docs
-  {:documentation/content "Hello yorba docs!"})
+ (observation/register! :dev/yorba-id :semantic.observation.type/docs
+			{:documentation/content "Hello yorba docs!"})
  ;; {:semantic/subject          :dev/yorba-id,
  ;;  :semantic/observation      #:documentation{:content "Hello yorba docs!"},
  ;;  :semantic.observation/type :semantic.observation.type/docs}
 
- (semantic/read-observation :dev/yorba-id :semantic.observation.type/docs)
+ (observation/fetch :dev/yorba-id :semantic.observation.type/docs)
  ;;=> #:documentation{:content "Hello yorba docs!"}
 
  (observation.type/implementers  :semantic.observation.type/docs)
  ;;=> #{:dev/yorba-id}
 
- (mapv #(semantic/read-observation % :semantic.observation.type/docs) (observation.type/implementers  :semantic.observation.type/docs))
+ (mapv #(observation/fetch % :semantic.observation.type/docs) (observation.type/implementers
+							       :semantic.observation.type/docs))
  ;;=> [#:documentation{:content "Hello yorba docs!"}]
 
- (semantic/observe!
-  :dev/yorba-foo
-  :semantic.observation.type/docs
-  {:documentation/content "Hello yorba foo!"})
+ (observation/register! :dev/yorba-foo :semantic.observation.type/docs
+			{:documentation/content "Hello yorba foo!"})
  ;; {:semantic/subject          :dev/yorba-foo,
  ;;  :semantic/observation      #:documentation{:content "Hello yorba foo!"},
  ;;  :semantic.observation/type :semantic.observation.type/docs}
 
- (mapv #(semantic/read-observation % :semantic.observation.type/docs) (observation.type/implementers  :semantic.observation.type/docs))
- ;;=> [#:documentation{:content "Hello yorba docs!"} #:documentation{:content "Hello yorba foo!"}]
+ (mapv #(observation/fetch % :semantic.observation.type/docs) (observation.type/implementers
+							       :semantic.observation.type/docs))
+ ;;=> [#:documentation{:content "Hello yorba docs!"} #:documentation{:content "Hello yorba foo!"}]   
  #+END_SRC
 
 
