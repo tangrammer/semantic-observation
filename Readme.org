@@ -1,6 +1,9 @@
 * semantic-observation
 
 
+** clojars info
+https://clojars.org/com.github.tangrammer/semantic-observation
+
 
 ** Usage
 
