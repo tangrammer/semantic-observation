@@ -43,6 +43,33 @@ https://clojars.org/com.github.tangrammer/semantic-observation
  #+END_SRC
 
 
+** Rationale
+
+*** Core Problem
+Traditional type systems and data schemas conflate structure with meaning, leading to rigid systems where:
+
+- Adding new information about entities requires schema changes
+- Different contexts need different views of the same entity
+- Systems become brittle as requirements evolve
+
+*** Solution: Semantic Observations
+This project implements a field-centric observation system where:
+
+- *Semantic attributes are first-class* - Individual fields (~:documentation/content~) have independent meaning and validation via ~clojure.spec~
+- *Observation types are composable collections* - Rather than fixed schemas, observation types (~:semantic.observation.type/docs~) are just named collections of attributes that can be observed about semantic subject identities
+- *Subjects accumulate observations* - Any subject (identified by namespaced keyword) can have multiple observations of different types made about it, enabling information accretion without modification
+- *Context-independent semantics* - The meaning of ~:documentation/content~ remains stable regardless of which observation type includes it
+
+*** Key Benefits
+
+- *Open-world assumption* - New observation types can be added without changing existing ones
+- *Reusable semantic fields* - Attributes defined once, used across many observation types
+- *Discovery via registry* - Can query which subjects implement an observation type
+- *Evolution without breakage* - Following Rich Hickey's "accretion not breakage" principle
+- *Separates "what can be observed" from "what is required"* - Aligns with the schema/selection split from "Maybe Not" talk
+
+This architecture enables systems to grow by accretion rather than modification, supporting the kind of compatible evolution that Rich Hickey advocates for in "Spec-ulation" while providing the semantic stability and reusability outlined in the field-centric architecture design.
+
 ** License
 
 https://opensource.org/licenses/MIT
