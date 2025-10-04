@@ -4,7 +4,6 @@
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.11.1"]]
-  :repl-options {:init-ns semantic-observation.core}
   :profiles {:dev {:source-paths   ["dev/src"]
                    :repl-options   {:init-ns dev}
                    :dependencies [[org.clojure/tools.namespace "1.4.4"]]}})
