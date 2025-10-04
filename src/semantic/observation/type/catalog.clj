@@ -4,5 +4,5 @@
 
 (s/def :documentation/content string?)
 
-(observation.type/def :semantic.observation.type/docs [:documentation/content])
+(observation.type/register! :semantic.observation.type/docs [:documentation/content])
 
